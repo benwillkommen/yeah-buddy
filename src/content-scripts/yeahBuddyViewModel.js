@@ -1,9 +1,19 @@
-console.log("test");
-
 var yeahBuddyViewModel = function(){
-	var self = this;
-	var _activityCache = null;
+	var self = this;	
 	var _userId = null;
+
+	self.activitiesViewModel = ko.observable();
+	self.test = ko.observable("adsf");
+
+
+	var getActivities = function(){		
+		$.ajax({
+			url: "https://www.fitocracy.com/get_user_activities/" + _userId,
+ 			success: function(data){	
+ 				self.activitiesViewModel(new yeahBuddyActivitiesViewModel(data));
+			}
+		});		
+	};
 
 	var init = function(){
 		$.ajax({
@@ -11,30 +21,51 @@ var yeahBuddyViewModel = function(){
 			success: function(data){
 				var matches = data.match(/var user_id = "(\d*)"/);
 				_userId = matches[1];
+
+				getActivities();
 			}
 		})
 	}
+
 	init();
 
-	var getActivities = function(){
-		if (_activityCache == null){
-			$.ajax({
- 				url: "https://www.fitocracy.com/get_user_activities/" + _userId,
-	 			success: function(data){	
-	 				_activityCache = data;
-				}
-			});
-		}
-		return _activityCache;
-	}
+	
 
 	self.open = function(){
-		$("#yeahBuddyDialog").dialog("open");	
-		getActivities();
-
-		
+		$("#yeahBuddyDialog").dialog("open");			
 	}
 };
+
+var yeahBuddyActivitiesViewModel = function(model){
+	var self = this;
+	var activities = model;
+
+	self.currentPage = ko.observable(0);
+	self.pageSize = ko.observable(25);
+	var lastPage = ko.computed(function(){
+		return Math.floor(model.length / self.pageSize());
+	});
+	var sliceStart = ko.computed(function(){
+		return self.currentPage() * self.pageSize();
+	});
+	var sliceEnd =ko.computed(function(){
+		return sliceStart() + self.pageSize();
+	});
+	self.displayedActivities = ko.computed(function(){
+		return activities.slice(sliceStart(), sliceEnd());
+	});
+
+	self.nextPage = function(){
+		if (self.currentPage() + 1 <= lastPage())
+			self.currentPage(self.currentPage() + 1);
+	}
+
+	self.previousPage = function(){
+		if (self.currentPage() - 1 >= 0)
+			self.currentPage(self.currentPage() - 1);
+	}
+}
+
 // (function(activityId){
 // 	$.ajax({
 // 		url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=" + activityId,

@@ -1,15 +1,21 @@
 <img data-bind='click: open' id='yeahBuddyButton' src='//i.imgur.com/s0wv0ZV.png'/>
 <div id='yeahBuddyDialog'>
+
 	<div class='yeahBuddyTabs'>
 		<ul>
 		    <li><a href="#repPRs">Rep PRs</a></li>
 		    <li><a href="#dataExport">Data Export</a></li>		    
 	  	</ul>
 		<div id="repPRs">
-			rep prs
+			<div class="activities" data-bind="with:activitiesViewModel">
+				<a href="javascript:void(0);" data-bind="click: previousPage">previous</a>|<a href="javascript:void(0);" data-bind="click: nextPage">next</a>
+				<ul data-bind="foreach: displayedActivities">
+					<li data-bind="text: name"></li>
+				</ul>
+			</div>
 		</div>
 		<div id="dataExport">
-			data export
+			Yeah, yeah, hold your horses.
 		</div>  
 	</div>
 </div>
@@ -17,6 +23,7 @@
 
 <script type="text/javascript">
 	$("#yeahBuddyDialog").dialog({
+		appendTo: "#yeahBuddyWrapper",
 		modal: true,
 		autoOpen: false,
 		dialogClass: "yeahBuddyModalWrapper",
@@ -31,6 +38,5 @@
 	$(".yeahBuddyTabs").tabs();
 	var debugViewModel = new yeahBuddyViewModel(); //convient to have view model accesible globally while in dev. if still here in prod, #whoops #YOLO
 	ko.applyBindings(debugViewModel, document.getElementById("yeahBuddyWrapper"));
-
-	chrome.tabs.executeScript( { code: "console.log(user_id);"                          });
+	//ko.applyBindings(debugViewModel, document.getElementById("yeahBuddyModalWrapper"));
 </script>
