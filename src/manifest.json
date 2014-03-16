@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "Fitalitarianism",
+  "description": "Strict, unflinching, oppressive control over your training data.",
+  "version": "1.0",
+
+  "permissions": [
+    "https://www.fitocracy.com/"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["https://*/.fitocracy.com/*"],
+      /*"css": ["mystyles.css"],*/
+      "js": ["content-scripts/repPRs.js"]
+    }
+  ]
+}
