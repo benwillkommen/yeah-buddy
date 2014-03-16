@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "Fitalitarianism",
-  "description": "Strict, unflinching, oppressive control over your training data.",
+  "name": "Yeah Buddy!",
+  "description": "Er'ybody wanna build a social network. Don't nobody wanna lift this heavy ass data!",
   "version": "1.0",
 
   "permissions": [
@@ -11,8 +11,16 @@
   "content_scripts": [
     {
       "matches": ["*://www.fitocracy.com/*"],
-      /*"css": ["mystyles.css"],*/
-      "js": ["lib/jquery-1.11.0.min.js", "content-scripts/repPRs.js"]
+      "css": [/*"lib/jquery-ui.min.css",*/"css/main.css"],
+      "js": [
+        "lib/jquery-1.11.0.min.js",
+        "lib/jquery-ui.min.js",
+        "lib/knockout-min.js",
+        "content-scripts/yeahBuddyViewModel.js",
+        "content-scripts/bootstrapper.js"
+      ]
     }
-  ]
+  ],
+  "web_accessible_resources": ["html/*"]
+
 }

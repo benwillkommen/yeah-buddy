@@ -1,8 +1,40 @@
-alert("test");
 console.log("test");
 
-$("body").append("<div>test</div>");
+var yeahBuddyViewModel = function(){
+	var self = this;
+	var _activityCache = null;
+	var _userId = null;
 
+	var init = function(){
+		$.ajax({
+			url: "https://www.fitocracy.com/home",
+			success: function(data){
+				var matches = data.match(/var user_id = "(\d*)"/);
+				_userId = matches[1];
+			}
+		})
+	}
+	init();
+
+	var getActivities = function(){
+		if (_activityCache == null){
+			$.ajax({
+ 				url: "https://www.fitocracy.com/get_user_activities/" + _userId,
+	 			success: function(data){	
+	 				_activityCache = data;
+				}
+			});
+		}
+		return _activityCache;
+	}
+
+	self.open = function(){
+		$("#yeahBuddyDialog").dialog("open");	
+		getActivities();
+
+		
+	}
+};
 // (function(activityId){
 // 	$.ajax({
 // 		url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=" + activityId,
