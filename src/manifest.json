@@ -10,9 +10,9 @@
   ],
   "content_scripts": [
     {
-      "matches": ["https://*/.fitocracy.com/*"],
+      "matches": ["*://www.fitocracy.com/*"],
       /*"css": ["mystyles.css"],*/
-      "js": ["content-scripts/repPRs.js"]
+      "js": ["lib/jquery-1.11.0.min.js", "content-scripts/repPRs.js"]
     }
   ]
 }
