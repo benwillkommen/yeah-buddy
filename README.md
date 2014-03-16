@@ -1,4 +1,4 @@
-#Fitalitarianism
+#Yeah Buddy!
 
 1. Be logged into fitocracy
 2. Open chrome console
