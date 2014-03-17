@@ -6,12 +6,21 @@
 		    <li><a href="#repPRs">Rep PRs</a></li>
 		    <li><a href="#dataExport">Data Export</a></li>		    
 	  	</ul>
-		<div id="repPRs">
-			<div class="activities" data-bind="with:activitiesViewModel">
+		<div id="repPRs" data-bind="with:activitiesViewModel">
+			<div class="activities">
+
+				<input type="text" data-bind="value: search" placeholder="Search" />
 				<a href="javascript:void(0);" data-bind="click: previousPage">previous</a>|<a href="javascript:void(0);" data-bind="click: nextPage">next</a>
 				<ul data-bind="foreach: displayedActivities">
-					<li data-bind="text: name"></li>
+					<li><a href="javascript:void(0);" data-bind="text: name, click: $parent.showRepPRs"></a></li>
 				</ul>
+			</div>
+			<div class="prDisplay" data-bind="if: typeof currentRepPR() !== 'undefined'">
+				<div data-bind="with: currentRepPR">
+					<ul data-bind="foreach: repPRsArray">
+						<li data-bind="text: reps + 'x' + weight"></li>						
+					</ul>
+				</div>
 			</div>
 		</div>
 		<div id="dataExport">
@@ -19,24 +28,3 @@
 		</div>  
 	</div>
 </div>
-<!-- https://www.fitocracy.com/site_media/images/stream_loader.gif -->
-
-<script type="text/javascript">
-	$("#yeahBuddyDialog").dialog({
-		appendTo: "#yeahBuddyWrapper",
-		modal: true,
-		autoOpen: false,
-		dialogClass: "yeahBuddyModalWrapper",
-		open: function(){
-			$(".ui-widget-overlay").addClass("backgroundOverride");
-		},
-		close: function(){
-			$(".ui-widget-overlay").removeClass("backgroundOverride");
-		}
-
-	});
-	$(".yeahBuddyTabs").tabs();
-	var debugViewModel = new yeahBuddyViewModel(); //convient to have view model accesible globally while in dev. if still here in prod, #whoops #YOLO
-	ko.applyBindings(debugViewModel, document.getElementById("yeahBuddyWrapper"));
-	//ko.applyBindings(debugViewModel, document.getElementById("yeahBuddyModalWrapper"));
-</script>
