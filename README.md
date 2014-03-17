@@ -5,5 +5,5 @@ Yeah Buddy! is a chrome extension to help flesh out some missing features from f
 
 **Roadmap**
 * Rep PR support
-* Historical Data Export
+* Historical data export (shot out to all the data mining/machine learning people who also lift heavy things)
 * ???
