@@ -1,6 +1,12 @@
 #yeahBuddyButton{position:fixed;bottom:0;right:0;height:100px;width:100px;cursor:pointer;}
 .backgroundOverride{background-image:none !important;}
-.activities{float:left;width: 250px;margin-right: 20px;}
+.activities{float:left;}
+.activityPagination a{text-decoration: underline; font-weight: bold;}
+#repPRs{width:100%;}
+#repPRs h3{text-align: center;margin:5px 0 8px 0;}
+#repPRs h4{}
 #repPRs .loading{text-align: center;}
 .prDisplay{float:left;width: 560px;}
+.repPrColumn{width: 32%;float:left;}
+.recordDetails{}
 #yeahBuddyDialog .ui-tabs .ui-tabs-panel{display:inline-block;}

@@ -7,28 +7,54 @@
 		    <li><a href="#dataExport">Data Export</a></li>		    
 	  	</ul>
 		<div id="repPRs" data-bind="with:activitiesViewModel">
-			<div class="activities">
+			<h3 data-bind="html: heading"></h3>
+			<div class="activities repPrColumn">
 
 				<input type="text" data-bind="value: search" placeholder="Search" />
-				<a href="javascript:void(0);" data-bind="click: previousPage">previous</a>|<a href="javascript:void(0);" data-bind="click: nextPage">next</a>
+				<div class="activityPagination">
+					<a href="javascript:void(0);" data-bind="click: previousPage">previous</a> | <a href="javascript:void(0);" data-bind="click: nextPage">next</a>
+				</div>
 				<ul data-bind="foreach: displayedActivities">
 					<li><a href="javascript:void(0);" data-bind="text: name, click: $parent.showRepPRs"></a></li>
 				</ul>
 			</div>
-			<div class="prDisplay loading" data-bind="visible: loading()">
+			<div class="prDisplay loading repPrColumn" data-bind="visible: loading()">
 				<img src="https://s3.amazonaws.com/static.fitocracy.com/site_media/images/ajax-loader.gif" />
 			</div>
-			<div class="prDisplay" data-bind="visible: !loading(), if: typeof currentRepPR() !== 'undefined'">				
+			<h4 data-bind="text: currentRepPR.excerciseName"></h4>
+			<div class="prDisplay repPrColumn" data-bind="visible: !loading(), if: typeof currentRepPR() !== 'undefined'">
+				<h4>Current Records</h4>			
 				<div data-bind="with: currentRepPR">
-					<h4 data-bind="text: excerciseName"></h4>
 					<ul data-bind="foreach: repPRsArray">
 						<li>
-							<a href="javascript:void(0)">
+							<a href="javascript:void(0)" data-bind="click: $parent.setRecordDetails">
 								<span data-bind="text: reps"></span> reps @ <span data-bind="text: weight"></span> lbs on <span data-bind="text: date"></span>
 							</a>
 						</li>						
 					</ul>
 				</div>
+			</div>
+			<div class="repPrColumn recordDetails" data-bind="visible:!loading(), with: currentRepPR">
+				<div data-bind="visible:showRecordDetails()">
+					<h4>Previous records at <span data-bind="text:detailWeight"></span> lbs</h4>
+					<ul data-bind="foreach: displayedRecordsByWeight">
+						<li>
+							<a data-bind="attr:{href: url}" target="_blank">
+								<span data-bind="text: reps"></span> reps on <span data-bind="text: date"></span>
+							</a>
+						</li>
+					</ul>
+					<br/>
+					<h4>Previous records at <span data-bind="text:detailReps"></span> reps</h4>
+					<ul data-bind="foreach: displayedRecordsByReps">
+						<li>
+							<a data-bind="attr:{href: url}" target="_blank">
+								<span data-bind="text: weight"></span> lbs on <span data-bind="text: date"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
 			</div>
 		</div>
 		<div id="dataExport">

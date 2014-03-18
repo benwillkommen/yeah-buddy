@@ -56,6 +56,13 @@ var yeahBuddyActivitiesViewModel = function(model){
 	self.currentRepPR = ko.observable();
 	self.loading = ko.observable(false);
 
+	self.heading = ko.computed(function(){
+		if(typeof self.currentRepPR() !== "undefined" && !self.loading()){
+			return self.currentRepPR().excerciseName();
+		}
+		return "&nbsp;"
+	});
+
 	self.showRepPRs = function(activity){
 		self.loading(true);	
 		if (typeof activity.repPRViewModel === "undefined"){
