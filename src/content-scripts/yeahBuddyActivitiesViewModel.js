@@ -54,19 +54,23 @@ var yeahBuddyActivitiesViewModel = function(model){
 	};
 
 	self.currentRepPR = ko.observable();
+	self.loading = ko.observable(false);
 
-	self.showRepPRs = function(activity){		
+	self.showRepPRs = function(activity){
+		self.loading(true);	
 		if (typeof activity.repPRViewModel === "undefined"){
 			$.ajax({
 				url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=" + activity.id,
 				success: function(data){
 					activity.repPRViewModel = new yeahBuddyRepPRViewModel(data);
-					self.currentRepPR(activity.repPRViewModel);					
+					self.currentRepPR(activity.repPRViewModel);	
+					self.loading(false);				
 				}
 			});
 		}
 		else {
 			self.currentRepPR(activity.repPRViewModel);
+			self.loading(false);
 		}
 	};
 };

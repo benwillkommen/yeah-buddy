@@ -1,4 +1,6 @@
 #yeahBuddyButton{position:fixed;bottom:0;right:0;height:100px;width:100px;cursor:pointer;}
 .backgroundOverride{background-image:none !important;}
-.activities{float:left;}
-.prDisplay{float:right;}
+.activities{float:left;width: 250px;margin-right: 20px;}
+#repPRs .loading{text-align: center;}
+.prDisplay{float:left;width: 560px;}
+#yeahBuddyDialog .ui-tabs .ui-tabs-panel{display:inline-block;}

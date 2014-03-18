@@ -13,7 +13,7 @@ $('#yeahBuddyWrapper').load(templateUrl, function(){
 			$(".ui-widget-overlay").removeClass("backgroundOverride");
 		},
 		width:900,
-		height: 500,
+		minHeight: 520,
 		title: "Ain't nothin' but a peanut!"
 
 	});

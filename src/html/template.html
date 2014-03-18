@@ -1,4 +1,4 @@
-<img data-bind='click: open' id='yeahBuddyButton' src='//i.imgur.com/s0wv0ZV.png'/>
+<img data-bind='visible: BIGRON, click: open' id='yeahBuddyButton' src='//i.imgur.com/s0wv0ZV.png'/>
 <div id='yeahBuddyDialog'>
 
 	<div class='yeahBuddyTabs'>
@@ -15,10 +15,18 @@
 					<li><a href="javascript:void(0);" data-bind="text: name, click: $parent.showRepPRs"></a></li>
 				</ul>
 			</div>
-			<div class="prDisplay" data-bind="if: typeof currentRepPR() !== 'undefined'">
+			<div class="prDisplay loading" data-bind="visible: loading()">
+				<img src="https://s3.amazonaws.com/static.fitocracy.com/site_media/images/ajax-loader.gif" />
+			</div>
+			<div class="prDisplay" data-bind="visible: !loading(), if: typeof currentRepPR() !== 'undefined'">				
 				<div data-bind="with: currentRepPR">
+					<h4 data-bind="text: excerciseName"></h4>
 					<ul data-bind="foreach: repPRsArray">
-						<li data-bind="text: reps + 'x' + weight"></li>						
+						<li>
+							<a href="javascript:void(0)">
+								<span data-bind="text: reps"></span> reps @ <span data-bind="text: weight"></span> lbs on <span data-bind="text: date"></span>
+							</a>
+						</li>						
 					</ul>
 				</div>
 			</div>
