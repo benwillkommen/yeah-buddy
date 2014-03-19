@@ -28,12 +28,23 @@ var yeahBuddyViewModel = function(){
 					getActivities();
 				}				
 			}
-		})
-	}
+		});
+	};
 
 	self.open = function(){
 		$("#yeahBuddyDialog").dialog("open");			
-	}
+	};
+
+	self.backupData = function(){
+		$.ajax({
+			url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=828",
+			success: function(data){
+				var fileParts = [JSON.stringify(data)];
+				var blob = new Blob(fileParts, {type : 'application/json'});
+				saveAs(blob, "document.json");		
+			}
+		});
+	};
 
 	init();		
 };

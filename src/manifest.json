@@ -16,6 +16,7 @@
         "lib/jquery-1.11.0.min.js",
         "lib/jquery-ui.min.js",
         "lib/knockout-min.js",
+        "lib/FileSaver.js",
         "content-scripts/yeahBuddyRepPRViewModel.js",
         "content-scripts/yeahBuddyActivitiesViewModel.js",
         "content-scripts/yeahBuddyViewModel.js",
