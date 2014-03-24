@@ -36,17 +36,45 @@ var yeahBuddyViewModel = function(){
 	};
 
 	self.backupData = function(){
-		for(var i = 0; i <; i++){
-			$.ajax({
-				url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=828",
-				success: function(data){
-					var fileParts = [JSON.stringify(data)];
-					
-					var blob = new Blob(fileParts, {type : 'application/json'});
-					saveAs(blob, "document.json");		
-				}
-			});
+		var _activityHistory = {};
+
+		//build an object with property names that are activityIds
+		for(var i = 0; i < self.activitiesViewModel().activities.length; i++){
+			_activityHistory[self.activitiesViewModel().activities[i].id] = null;
 		}
+
+		//recursion: not just for CS101 quizzes!
+		var getActivtyHistory = function(activityHistory){			
+			var activityToDownload = null;
+
+			//find the next activityToDownload
+			for(var activityId in activityHistory){				
+				if (activityHistory[activityId] === null){
+					activityToDownload = activityId;
+					break;
+				}
+			}
+
+			if(activityToDownload === null){
+				//all values for each activityId have a value. save file and return to stop recursion.
+				var fileParts = [JSON.stringify(activityHistory)];
+					
+				var blob = new Blob(fileParts, {type : 'application/json'});
+				saveAs(blob, "fitocracyHistory.json");		
+				return;
+			}
+
+			//there are still values in activityHistory that are null. resume spamming thier history endpoint.
+			$.ajax({
+				url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=" + activityToDownload,
+				success: function(data){
+					activityHistory[activityToDownload] = data;
+					getActivtyHistory(activityHistory);
+				}
+			});			
+		}		
+
+		getActivtyHistory(_activityHistory);		
 	};
 
 	init();		
