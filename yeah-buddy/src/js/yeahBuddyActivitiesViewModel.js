@@ -1,6 +1,6 @@
 var yeahBuddyActivitiesViewModel = function(model){
 	var self = this;
-	var activities = model;
+	self.activities = model;
 
 	self.search = ko.observable("");
 	self.searchTerms = ko.computed(function(){
@@ -10,7 +10,7 @@ var yeahBuddyActivitiesViewModel = function(model){
 		});
 	});
 	self.filteredActivities = ko.computed(function(){
-		return $.grep(activities, function(elem, i){
+		return $.grep(self.activities, function(elem, i){
 			var match = true;
 			var terms = self.searchTerms();
 			if (terms.length === 0)

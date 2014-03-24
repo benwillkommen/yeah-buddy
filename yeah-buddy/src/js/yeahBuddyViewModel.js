@@ -36,14 +36,17 @@ var yeahBuddyViewModel = function(){
 	};
 
 	self.backupData = function(){
-		$.ajax({
-			url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=828",
-			success: function(data){
-				var fileParts = [JSON.stringify(data)];
-				var blob = new Blob(fileParts, {type : 'application/json'});
-				saveAs(blob, "document.json");		
-			}
-		});
+		for(var i = 0; i <; i++){
+			$.ajax({
+				url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=828",
+				success: function(data){
+					var fileParts = [JSON.stringify(data)];
+					
+					var blob = new Blob(fileParts, {type : 'application/json'});
+					saveAs(blob, "document.json");		
+				}
+			});
+		}
 	};
 
 	init();		
