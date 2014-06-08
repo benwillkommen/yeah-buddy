@@ -10,3 +10,5 @@
 .repPrColumn{width: 32%;float:left;}
 .recordDetails{}
 #yeahBuddyDialog .ui-tabs .ui-tabs-panel{display:inline-block;}
+#exportLog{font-family: Andale Mono, monospace; height:200px; overflow-y: scroll;margin-top:10px;}
+#exportLog ul li{line-height: 1em;}

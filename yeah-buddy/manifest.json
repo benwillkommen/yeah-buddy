@@ -17,6 +17,7 @@
         "lib/jquery-ui.min.js",
         "lib/knockout-min.js",
         "lib/FileSaver.js",
+        "src/js/yeahBuddyDataExportViewModel.js",
         "src/js/yeahBuddyRepPRViewModel.js",
         "src/js/yeahBuddyActivitiesViewModel.js",
         "src/js/yeahBuddyViewModel.js",

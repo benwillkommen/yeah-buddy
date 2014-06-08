@@ -1,4 +1,4 @@
-<img data-bind='visible: BIGRON, click: open' id='yeahBuddyButton' src='//i.imgur.com/s0wv0ZV.png'/>
+<img data-bind='visible: isAuthenticated, click: open' id='yeahBuddyButton' src='//i.imgur.com/s0wv0ZV.png'/>
 <div id='yeahBuddyDialog'>
 	<div class='yeahBuddyTabs'>
 		<ul>
@@ -56,9 +56,24 @@
 				
 			</div>
 		</div>
-		<div id="dataExport">			
-			<a href="javascript:void(0);" data-bind="click: backupData">extract data</a>
-			
+		<div id="dataExport" data-bind="with:dataExportViewModel">		
+			<div data-bind="visible:!backupInProgress()">	
+				<a href="javascript:void(0);" data-bind="click: backupData">Begin Data Backup</a>
+			</div>
+			<div data-bind="visible:backupInProgress() || backupFinished()">
+				<div data-bind="visible: backupInProgress">
+					<div>Downloading <span data-bind="text:activitiesDownloaded() + 1"></span> of <span data-bind="text:totalActivities"></span> activities. This may take a while...</div>				
+					<div id="exportProgressBar"></div>
+				</div>
+				<div data-bind="visible: backupFinished">
+					Export finished with <span data-bind="text: errors"></span> errors. See log for more details.
+				</div>
+				<div id="exportLog">
+					<ul data-bind="foreach:logEntries">
+						<li data-bind="text: $data">
+					</ul>
+				</div>
+			</div>
 		</div>  
 	</div>
 </div>
