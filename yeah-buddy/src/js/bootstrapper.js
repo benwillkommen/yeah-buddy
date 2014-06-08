@@ -18,7 +18,7 @@ $('#yeahBuddyWrapper').load(templateUrl, function(){
 
 	});
 	$(".yeahBuddyTabs").tabs();
-	$("#exportProgressBar").progressbar();
+	$("#exportProgressBar").progressbar({value: 0});
 
 	//leaving view model in the global scope in case anyone wants to fart around with it in the console.
 	window.doWhateverTheFuckYouWant = new yeahBuddyViewModel();

@@ -11,14 +11,13 @@ var yeahBuddyDataExportViewModel = function(activities){
 		$("#exportLog").scrollTop($("#exportLog").scrollTop()+$("#exportLog ul li").last().position().top); 
 
 		//update progressbar
-		$("exportProgressBar").progressbar("value", self.percentExported());
+		$("#exportProgressBar").progressbar("value", self.percentExported());
 	};
 
 	self.activitiesDownloaded = ko.observable(0);
 	self.totalActivities = ko.observable(activities.length);
 	self.percentExported = ko.computed(function(){
-		var percent = Math.floor(100 * self.activitiesDownloaded() / self.totalActivities());		
-		return percent;
+		return 100 * self.activitiesDownloaded() / self.totalActivities();
 	});
 
 	self.logEntries = ko.observableArray();
@@ -27,9 +26,13 @@ var yeahBuddyDataExportViewModel = function(activities){
 	self.backupFinished = ko.observable(false);
 
 	self.backupData = function(){
+		//I'm initializing this in bootstrapper.js, but for some reason jquery ui throws and exception if it's not initialized here.
+		$("#exportProgressBar").progressbar();
+
 		self.backupInProgress(true);
 		self.backupFinished(false);
 		self.errors(0);
+		self.activitiesDownloaded(0);
 		self.logEntries.removeAll();
 
 		var _activityHistory = {};
@@ -65,6 +68,7 @@ var yeahBuddyDataExportViewModel = function(activities){
 
 			//there are still values in activityHistory that are null. resume spamming thier history endpoint.
 			self.logEntries.push(timeStamp() + " Downloading activity " + activityToDownload.id + ", " + activityToDownload.name);
+			updateUI();
 			$.ajax({
 				url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=" + activityToDownload.id,
 				success: function(data){
