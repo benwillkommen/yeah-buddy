@@ -1,4 +1,4 @@
-var yeahBuddyRepPRViewModel = function(data){
+var repPRViewModel = function(data){
 	var self = this;
 
 	var repPRs = {};

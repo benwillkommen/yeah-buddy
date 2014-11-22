@@ -13,8 +13,8 @@ var yeahBuddyViewModel = function(){
 		$.ajax({
 			url: "https://www.fitocracy.com/get_user_activities/" + _userId(),
  			success: function(activities){	
- 				self.activitiesViewModel(new yeahBuddyActivitiesViewModel(activities));
- 				self.dataExportViewModel(new yeahBuddyDataExportViewModel(activities));
+ 				self.activitiesViewModel(new activitiesViewModel(activities));
+ 				self.dataExportViewModel(new dataExportViewModel(activities));
 			}
 		});		
 	};

@@ -1,4 +1,4 @@
-var yeahBuddyActivitiesViewModel = function(model){
+var activitiesViewModel = function(model){
 	var self = this;
 	self.activities = model;
 
@@ -69,7 +69,7 @@ var yeahBuddyActivitiesViewModel = function(model){
 			$.ajax({
 				url: "https://www.fitocracy.com/_get_activity_history_json/?activity-id=" + activity.id,
 				success: function(data){
-					activity.repPRViewModel = new yeahBuddyRepPRViewModel(data);
+					activity.repPRViewModel = new repPRViewModel(data);
 					self.currentRepPR(activity.repPRViewModel);	
 					self.loading(false);				
 				}
