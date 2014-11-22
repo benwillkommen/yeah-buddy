@@ -20,6 +20,10 @@ var yeahBuddyViewModel = function(){
 	};
 
 	var init = function(){
+		yeahBuddyPostBox.subscribe(function(ui){
+
+		}, null,"tabChange");
+
 		$.ajax({
 			url: "https://www.fitocracy.com/home",
 			success: function(data){

@@ -1,6 +1,9 @@
 $("body").append("<div id='yeahBuddyWrapper'></div>")
 var templateUrl = chrome.extension.getURL("src/html/template.html");
 $('#yeahBuddyWrapper').load(templateUrl, function(){
+
+	window.yeahBuddyPostBox = new ko.subscribable();
+
 	$("#yeahBuddyDialog").dialog({
 		appendTo: "#yeahBuddyWrapper",
 		modal: true,
@@ -17,7 +20,11 @@ $('#yeahBuddyWrapper').load(templateUrl, function(){
 		title: "Ain't nothin' but a peanut!"
 
 	});
-	$(".yeahBuddyTabs").tabs();
+	$(".yeahBuddyTabs").tabs({
+		activate: function(event, ui){
+			yeahBuddyPostBox.notifySubscribers(ui, "tabChange");
+		}
+	});
 	$("#exportProgressBar").progressbar({value: 0});
 
 	//leaving view model in the global scope in case anyone wants to fart around with it in the console.

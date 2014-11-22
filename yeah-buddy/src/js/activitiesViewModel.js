@@ -63,6 +63,10 @@ var activitiesViewModel = function(model){
 		return "&nbsp;"
 	});
 
+	self.selectActivity = function(activity){
+		yeahBuddyPostBox.notifySubscribers(activity, "activitySelected");
+	};
+
 	self.showRepPRs = function(activity){
 		self.loading(true);	
 		if (typeof activity.repPRViewModel === "undefined"){
